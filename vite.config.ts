@@ -13,7 +13,7 @@ export default ({ command, mode }: ConfigEnv) => {
     plugins: [
       react(),
       AutoImport({
-        imports: ['react', 'mobx', 'react-router-dom'],
+        imports: ['react', 'react-router-dom'],
         dts: './src/auto-imports.d.ts',
         dirs: ['src/store'],
         eslintrc: {
@@ -34,6 +34,8 @@ export default ({ command, mode }: ConfigEnv) => {
         '@views': resolve(__dirname, './src/views'),
         '@assets': resolve(__dirname, './src/assets'),
         '@hooks': resolve(__dirname, './src/hooks'),
+        '@reducers': resolve(__dirname, './src/reducers'),
+        '@utils': resolve(__dirname, './src/utils'),
       },
     },
     //服务

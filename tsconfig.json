@@ -23,7 +23,9 @@
       "@components/*": ["src/components/*"],
       "@views/*": ["src/views/*"],
       "@store/*": ["src/store/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"],

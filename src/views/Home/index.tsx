@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import reactLogo from '@assets/react.svg'
 import HomeStyle from './index.module.scss'
-import { useNavigate } from 'react-router-dom'
 
 const publicPath = import.meta.env.VITE_PUBLIC_PATH
 function Home() {

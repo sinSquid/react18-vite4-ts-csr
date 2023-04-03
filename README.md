@@ -5,7 +5,6 @@ This starter template includes:
 - [Vite 4](https://vitejs.dev/guide/)
 - [React18](https://react.docschina.org/)
 - [React Router dom 6](https://reactrouter.com/en/main)
-- [Mobx6](https://mobx.js.org/README.html)
 - Introduce typescript, use tsx writing style.
 - Aktiver Eslint,prettier,husky,automatisk specifikation af projektkode.
 
@@ -15,7 +14,7 @@ Unplugin Utilities:
 
 ### Getting Started
 
-1. Clone code: execute command---git clone https://github.com/laoer536/vite3.0-react18-TypeScript-router-dom6-mobx6-Eslint-prettier-template
+1. Clone code: execute command---git clone 
 
 2. The editor opens and downloads the dependencies：Execution of commands---yarn
 
