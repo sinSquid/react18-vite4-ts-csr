@@ -1,6 +1,10 @@
 import VConsole from 'vconsole'
+
 export function useVConsole() {
-  if (location.href.includes('#vc')) {
-    new VConsole({ theme: 'dark', maxLogNumber: 1000 })
+  let vConsole
+  if (!window.VCONSOLE_INIT && location.href.includes('#vc')) {
+    window.VCONSOLE_INIT = true
+    vConsole = new VConsole({ theme: 'dark', log: { maxLogNumber: 1000 } })
   }
+  return vConsole
 }

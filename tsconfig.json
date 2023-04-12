@@ -26,9 +26,10 @@
       "@hooks/*": ["src/hooks/*"],
       "@reducers/*": ["src/reducers/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types/", "../node_modules/@types/", "../../node_modules/@types/", "./types/"]
   },
-  "include": ["src"],
+  "include": ["src", "types/**/*.d.ts", "types/**/*.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

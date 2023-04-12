@@ -14,7 +14,7 @@ Unplugin Utilities:
 
 ### Getting Started
 
-1. Clone code: execute command---git clone 
+1. Clone code: execute command---git clone
 
 2. The editor opens and downloads the dependencies：Execution of commands---yarn
 

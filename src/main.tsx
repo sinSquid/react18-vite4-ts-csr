@@ -6,12 +6,26 @@ import App from './App'
 import createStore from '@store/index'
 import './index.css'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Provider store={createStore({})}>
+function renderApp() {
+  const store = createStore({})
+  if (import.meta.env.NODE_ENV === 'production') {
+    return (
+      <React.StrictMode>
+        <Provider store={store}>
+          <BrowserRouter basename={import.meta.env.VITE_PUBLIC_PATH as string}>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </React.StrictMode>
+    )
+  }
+  return (
+    <Provider store={store}>
       <BrowserRouter basename={import.meta.env.VITE_PUBLIC_PATH as string}>
         <App />
       </BrowserRouter>
     </Provider>
-  </React.StrictMode>
-)
+  )
+}
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(renderApp())

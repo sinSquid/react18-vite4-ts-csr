@@ -40,6 +40,8 @@ export default ({ command, mode }: ConfigEnv) => {
     },
     //服务
     server: {
+      port: 6688,
+      host: '0.0.0.0',
       //自定义代理---解决跨域
       proxy: {
         // 选项写法
