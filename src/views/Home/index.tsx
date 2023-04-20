@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useEventBus } from '@hooks/useEventBus'
+import Footer from './Footer'
 import reactLogo from '@assets/react.svg'
 import HomeStyle from './index.module.scss'
 
@@ -10,6 +12,7 @@ function Home() {
   const goAboutPage = () => {
     navigate('/about')
   }
+  const eventBus = useEventBus()
 
   return (
     <div className={HomeStyle.home}>
@@ -23,10 +26,18 @@ function Home() {
       </div>
       <h1>Vite + React</h1>
       <div className={HomeStyle.card}>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <button
+          onClick={() => {
+            setCount((count) => count + 1)
+            eventBus.emit('addAge')
+          }}
+        >
+          count is {count}
+        </button>
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
       <button onClick={goAboutPage}>点击跳转到about页面</button>
+      <Footer />
     </div>
   )
 }
