@@ -6,66 +6,54 @@ import { changeUser } from '@reducers/user'
 import { useEventBus } from '@hooks/useEventBus'
 
 function About() {
-  const [pageTitle] = useState('laoer536-关于页面') // 因为加入了unplugin-auto-import 所以不用在手动导入
-  const { name, age } = useSelector((state: any) => state.user);
-  const dispatch = useDispatch();
-  const batteryState = useBattery();
-  const navigate = useNavigate();
-  const eventBus = useEventBus();
+  const [pageTitle] = useState('12') // 因为加入了unplugin-auto-import 所以不用在手动导入
+  const { name, age } = useSelector((state: any) => state.user)
+  const dispatch = useDispatch()
+  const batteryState = useBattery()
+  const navigate = useNavigate()
+  const eventBus = useEventBus()
 
   const renderBattery = () => {
     if (!batteryState.isSupported) {
       return (
         <div>
-          <strong>Battery sensor</strong>:
-<span>not supported</span>
+          <strong>Battery sensor</strong>:<span>not supported</span>
         </div>
-      );
+      )
     }
 
     if (!batteryState.fetched) {
       return (
         <div>
           <strong>Battery sensor</strong>
-          <span>supported</span>
-{' '}
-<br />
+          <span>supported</span> <br />
           <strong>Battery state</strong>
           <span>fetching</span>
         </div>
-      );
+      )
     }
 
     return (
       <div>
         <strong>Battery sensor</strong>
         :&nbsp;&nbsp;
-        <span>supported</span>
-{' '}
-<br />
+        <span>supported</span> <br />
         <strong>Battery state</strong>:<span>fetched</span> <br />
         <strong>Charge level</strong>
         :&nbsp;&nbsp;
-        <span>
-{(batteryState.level * 100).toFixed(0)}%</span>
-{' '}
-<br />
+        <span>{(batteryState.level * 100).toFixed(0)}%</span> <br />
         <strong>Charging</strong>
         :&nbsp;&nbsp;
-        <span>{batteryState.charging ? 'yes' : 'no'}</span>
-{' '}
-<br />
+        <span>{batteryState.charging ? 'yes' : 'no'}</span> <br />
         <strong>Charging time</strong>
         :&nbsp;&nbsp;
-        <span>{batteryState.chargingTime ? batteryState.chargingTime : 'finished'}</span>
-{' '}
-<br />
+        <span>{batteryState.chargingTime ? batteryState.chargingTime : 'finished'}</span> <br />
         <strong>Discharging time</strong>
         :&nbsp;&nbsp;
         <span>{batteryState.dischargingTime}</span>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div>
@@ -75,7 +63,7 @@ function About() {
       <div>
         <button
           onClick={() => {
-            navigate(-1);
+            navigate(-1)
           }}
         >
           Back
@@ -83,14 +71,14 @@ function About() {
       </div>
       <button
         onClick={() => {
-          dispatch(changeUser({ age: age + 1 }));
+          dispatch(changeUser({ age: age + 1 }))
         }}
       >
         点击改变数字
       </button>
       {renderBattery()}
     </div>
-  );
+  )
 }
 
-export default About;
+export default About

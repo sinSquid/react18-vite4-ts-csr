@@ -16,7 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "suppressImplicitAnyIndexErrors": true,
     "paths": {
       //设置这里也需要设定path 否则ts识别不了路径会报错 即使你在vite里面设置了快捷路径
       "@/*": ["src/*"],
