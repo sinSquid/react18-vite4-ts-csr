@@ -17,11 +17,12 @@
   },
   "extends": [
     "./.eslintrc-auto-import.json",
-    "prettier",
     "airbnb",
     "plugin:import/typescript",
     "plugin:jsx-a11y/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "plugins": ["import", "jsx-a11y", "prettier", "react", "react-hooks"],
   "rules": {
@@ -29,7 +30,8 @@
     "import/no-unresolved": 0,
     "prettier/prettier": 2,
     "semi": 0,
-    "react/jsx-one-expression-per-line": 0
+    "react/jsx-one-expression-per-line": 0,
+    "import/no-extraneous-dependencies": 0
   },
   "settings": {
     "import/resolver": {
