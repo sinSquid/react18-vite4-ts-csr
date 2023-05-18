@@ -2,8 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useBattery } from 'react-use'
 import { useNavigate } from 'react-router-dom'
-import { changeUser } from '@reducers/user'
-import { useEventBus } from '@hooks/useEventBus'
+import { changeUser } from '#@reducers/user'
 
 function About() {
   const [pageTitle] = useState('12') // 因为加入了unplugin-auto-import 所以不用在手动导入
@@ -11,7 +10,6 @@ function About() {
   const dispatch = useDispatch()
   const batteryState = useBattery()
   const navigate = useNavigate()
-  const eventBus = useEventBus()
 
   const renderBattery = () => {
     if (!batteryState.isSupported) {
@@ -59,7 +57,6 @@ function About() {
     <div>
       <h2>{pageTitle}</h2>
       <p>{`${name}:${age}`}</p>
-      <p>{`from eventBus—>${eventBus.state.name}:${eventBus.state.age}`}</p>
       <div>
         <button
           onClick={() => {

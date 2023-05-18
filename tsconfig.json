@@ -16,20 +16,24 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "declaration": true,
+    "types": ["vite/client"],
     "paths": {
       //设置这里也需要设定path 否则ts识别不了路径会报错 即使你在vite里面设置了快捷路径
-      "@/*": ["src/*"],
-      "@assets/*": ["src/assets/*"],
-      "@components/*": ["src/components/*"],
-      "@views/*": ["src/views/*"],
-      "@store/*": ["src/store/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@reducers/*": ["src/reducers/*"],
-      "@utils/*": ["src/utils/*"]
+      "#@/*": ["src/*"],
+      "#@assets/*": ["src/assets/*"],
+      "#@components/*": ["src/components/*"],
+      "#@views/*": ["src/views/*"],
+      "#@store/*": ["src/store/*"],
+      "#@hooks/*": ["src/hooks/*"],
+      "#@reducers/*": ["src/reducers/*"],
+      "#@utils/*": ["src/utils/*"],
+      "#@types/*": ["types/*"],
     },
     "typeRoots": ["./node_modules/@types/", "../node_modules/@types/", "../../node_modules/@types/", "./types/"]
   },
-  "include": ["src", "types/**/*.d.ts", "types/**/*.ts"],
+  "include": ["src/**/*.tsx", "src/**/*.ts", "types/**/*.d.ts", "types/**/*.ts"],
+  "exclude": ["docs"],
   "references": [
     {
       "path": "./tsconfig.node.json"

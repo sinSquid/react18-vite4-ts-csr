@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useEventBus } from '@hooks/useEventBus'
+import reactLogo from '#@assets/react.svg'
 import Footer from './Footer'
-import reactLogo from '@assets/react.svg'
 import HomeStyle from './index.module.scss'
 
 const publicPath = import.meta.env.VITE_PUBLIC_PATH
@@ -12,13 +11,12 @@ function Home() {
   const goAboutPage = () => {
     navigate('/about')
   }
-  const eventBus = useEventBus()
 
   return (
     <div className={HomeStyle.home}>
       <div>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={publicPath + 'vite.svg'} className={HomeStyle.logo} alt="Vite logo" />
+          <img src={`${publicPath}vite.svg`} className={HomeStyle.logo} alt="Vite logo" />
         </a>
         <a href="https://reactjs.org" target="_blank" rel="noreferrer">
           <img src={reactLogo} className={`${HomeStyle.logo} ${HomeStyle.react}`} alt="React logo" />
@@ -29,7 +27,6 @@ function Home() {
         <button
           onClick={() => {
             setCount((count) => count + 1)
-            eventBus.emit('addAge')
           }}
         >
           count is {count}

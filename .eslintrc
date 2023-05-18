@@ -26,12 +26,14 @@
   ],
   "plugins": ["import", "jsx-a11y", "prettier", "react", "react-hooks"],
   "rules": {
-    "import/extensions": [2, { "ignore": ["^@store", "^@views", "^@assets", "^@hooks", "@reducers", "@utils"] }],
+    "import/extensions": [2, { "ignore": ["^#@store", "^#@views", "^#@assets", "^#@hooks", "^#@reducers", "^#@utils", "^#@types"] }],
     "import/no-unresolved": 0,
     "prettier/prettier": 2,
     "semi": 0,
     "react/jsx-one-expression-per-line": 0,
-    "import/no-extraneous-dependencies": 0
+    "import/no-extraneous-dependencies": 0,
+    "react/jsx-filename-extension": [2, { "extensions":  [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/jsx-props-no-spreading": 0
   },
   "settings": {
     "import/resolver": {

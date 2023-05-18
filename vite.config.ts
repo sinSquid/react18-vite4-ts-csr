@@ -5,7 +5,7 @@ import { resolve } from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 
 // https://vitejs.dev/config/
-export default ({ command, mode }: ConfigEnv) => {
+export default ({ mode }: ConfigEnv) => {
   const currentEnv = loadEnv(mode, process.cwd())
   return defineConfig({
     plugins: [
@@ -16,54 +16,55 @@ export default ({ command, mode }: ConfigEnv) => {
         dirs: ['src/store'],
         eslintrc: {
           enabled: true, // Default `false`
-          filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
-        },
-      }),
+          filepath: './.eslintrc-auto-import.json' // Default `./.eslintrc-auto-import.json`
+        }
+      })
     ],
-    //项目部署的基础路径,
+    // 项目部署的基础路径,
     base: currentEnv.VITE_PUBLIC_PATH,
-    mode: mode,
+    mode,
     resolve: {
-      //别名
+      // 别名
       alias: {
-        '@': resolve(__dirname, './src'),
-        '@components': resolve(__dirname, './src/components'),
-        '@store': resolve(__dirname, './src/store'),
-        '@views': resolve(__dirname, './src/views'),
-        '@assets': resolve(__dirname, './src/assets'),
-        '@hooks': resolve(__dirname, './src/hooks'),
-        '@reducers': resolve(__dirname, './src/reducers'),
-        '@utils': resolve(__dirname, './src/utils'),
-      },
+        '#@': resolve(__dirname, './src'),
+        '#@components': resolve(__dirname, './src/components'),
+        '#@store': resolve(__dirname, './src/store'),
+        '#@views': resolve(__dirname, './src/views'),
+        '#@assets': resolve(__dirname, './src/assets'),
+        '#@hooks': resolve(__dirname, './src/hooks'),
+        '#@reducers': resolve(__dirname, './src/reducers'),
+        '#@utils': resolve(__dirname, './src/utils'),
+        '#@types': resolve(__dirname, './types')
+      }
     },
-    //服务
+    // 服务
     server: {
       port: 6688,
       host: '0.0.0.0',
-      //自定义代理---解决跨域
+      // 自定义代理---解决跨域
       proxy: {
         // 选项写法
         '/api': {
-          target: 'http://xxxxxx.com',
+          target: '',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-      },
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
     },
     css: {
       // css预处理器
       preprocessorOptions: {
         sass: {
-          javascriptEnabled: true,
-        },
-      },
+          javascriptEnabled: true
+        }
+      }
     },
-    //构建
+    // 构建
     build: {
-      outDir: `docs`, //输出路径
-      //构建后是否生成 source map 文件
-      sourcemap: mode != 'production',
-      //打包去掉打印信息 保留debugger vite3需要单独安装terser才行
+      outDir: `docs`, // 输出路径
+      // 构建后是否生成 source map 文件
+      sourcemap: mode !== 'production'
+      // 打包去掉打印信息 保留debugger vite3需要单独安装terser才行
       // minify: 'terser',
       // terserOptions: {
       //   compress: {
@@ -71,6 +72,6 @@ export default ({ command, mode }: ConfigEnv) => {
       //     drop_debugger: false,
       //   },
       // },
-    },
+    }
   })
 }

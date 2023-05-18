@@ -2,16 +2,13 @@ interface anyContent {
   [key: string | symbol | number]: any
 }
 
-export function useEventBus(scope = 'CUSTOM_EVENT_BUS') {
+export default function useEventBus(scope = 'CUSTOM_EVENT_BUS', initialState = {}) {
   const symbolScope = Symbol.for(scope)
   if ((window as anyContent)[symbolScope]) {
     return (window as anyContent)[symbolScope]
   }
   const bus: anyContent = {
-    state: {
-      name: 'old abiu',
-      age: 18,
-    },
+    state: { ...initialState },
     Observer: new Map(),
     emit(fn: string, args = []) {
       if (this[fn] && typeof this[fn] === 'function') {
@@ -27,10 +24,15 @@ export function useEventBus(scope = 'CUSTOM_EVENT_BUS') {
         this.Observer.set(fn, func)
       }
     },
-    addAge() {
-      this.state.age++
-    },
+    init(fn: string, func: () => void) {
+      if (func && typeof func === 'function') {
+        this[fn] = func
+      }
+    }
   }
-  window[symbolScope] = bus
+  Object.defineProperty(window, symbolScope, {
+    value: bus,
+    writable: true
+  })
   return bus
 }
