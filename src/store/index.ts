@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducers from '../reducers/index'
 
-export default function (...args: any[]) {
+export default function say(...args: any[]) {
   const [ctx, ...rest] = args
   const middlewares = [thunk]
   return compose(composeWithDevTools(applyMiddleware(...middlewares)))(createStore)(reducers, ...rest)
