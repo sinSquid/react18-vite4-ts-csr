@@ -32,6 +32,7 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "redux-typescript": "^1.2.1",
+    "three": "^0.153.0",
     "uuid": "^9.0.0",
     "vconsole": "^3.15.0"
   },
