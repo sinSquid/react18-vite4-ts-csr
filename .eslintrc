@@ -33,7 +33,8 @@
     "react/jsx-one-expression-per-line": 0,
     "import/no-extraneous-dependencies": 0,
     "react/jsx-filename-extension": [2, { "extensions":  [".js", ".jsx", ".ts", ".tsx"] }],
-    "react/jsx-props-no-spreading": 0
+    "react/jsx-props-no-spreading": 0,
+    "no-restricted-syntax": 0
   },
   "settings": {
     "import/resolver": {
