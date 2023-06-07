@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
-import type { LegacyRef } from 'react'
+import React, { useRef, useEffect } from 'react'
+import type { MutableRefObject } from 'react'
 import {
   PerspectiveCamera,
   Scene,
@@ -17,8 +17,8 @@ import {
   LoopOnce
 } from 'three'
 import type {
-  AnimationClip,
-  AnimationAction,
+  AnimationClip as AnimationClipType,
+  AnimationAction as AnimationActionType,
   Group as GroupType,
   WebGLRenderer as WebGLRendererType,
   PerspectiveCamera as PerspectiveCameraType,
@@ -35,13 +35,13 @@ import { states, emotes } from '#@views/Robot/const'
 import style from './index.module.scss'
 
 function Robot() {
-  const contentRef: React.MutableRefObject<{
-    actions: { [key: string]: AnimationAction }
-    activeAction: AnimationAction
-    previousAction: AnimationAction
-    mixer: AnimationMixerType
-    clock: ClockType
-    stats: StatsType
+  const contentRef: MutableRefObject<{
+    actions: { [key: string]: AnimationActionType | null }
+    activeAction?: AnimationActionType | null
+    previousAction?: AnimationActionType | null
+    mixer?: AnimationMixerType | null
+    clock?: ClockType | null
+    stats: StatsType | null
   }> = useRef({
     stats: null,
     clock: null,
@@ -50,12 +50,12 @@ function Robot() {
     activeAction: null,
     previousAction: null
   })
-  const mainRef: React.MutableRefObject<{
-    camera: PerspectiveCameraType
-    scene: SceneType
-    renderer: WebGLRendererType
-    model: GroupType
-    face: MeshType | undefined
+  const mainRef: MutableRefObject<{
+    camera: PerspectiveCameraType | null
+    scene: SceneType | null
+    renderer: WebGLRendererType | null
+    model: GroupType | null
+    face: MeshType | null
   }> = useRef({
     camera: null,
     scene: null,
@@ -66,31 +66,31 @@ function Robot() {
   const apiRef: React.MutableRefObject<{ state: string; [key: string]: string | (() => void) }> = useRef({
     state: 'Walking'
   })
-  const containerRef: React.MutableRefObject<{ current: LegacyRef<HTMLDivElement> | undefined }> = useRef({
-    current: undefined
-  })
+  const containerRef = useRef<HTMLDivElement>(null)
 
   function onWindowResize() {
-    mainRef.current.camera.aspect = window.innerWidth / window.innerHeight
-    mainRef.current.camera.updateProjectionMatrix()
-    mainRef.current.renderer.setSize(window.innerWidth, window.innerHeight)
+    if (mainRef.current.camera) {
+      mainRef.current.camera.aspect = window.innerWidth / window.innerHeight
+    }
+    mainRef.current.camera?.updateProjectionMatrix()
+    mainRef.current.renderer?.setSize(window.innerWidth, window.innerHeight)
   }
 
   function fadeToAction(name: string, duration: number) {
     contentRef.current.previousAction = contentRef.current.activeAction
     contentRef.current.activeAction = contentRef.current.actions[name]
     if (contentRef.current.previousAction !== contentRef.current.activeAction) {
-      contentRef.current.previousAction.fadeOut(duration)
+      contentRef.current.previousAction?.fadeOut(duration)
     }
-    contentRef.current.activeAction.reset().setEffectiveTimeScale(1).setEffectiveWeight(1).fadeIn(duration).play()
+    contentRef.current.activeAction?.reset().setEffectiveTimeScale(1).setEffectiveWeight(1).fadeIn(duration).play()
   }
 
-  function createGUI(model: GroupType, animations: AnimationClip[]): void {
-    const gui: GUI = new GUI()
+  function createGUI(model: GroupType, animations: AnimationClipType[]): void {
+    const gui = new GUI({ title: 'NieR:Automata', width: 180 })
     const mixer = new AnimationMixer(model)
     contentRef.current.actions = {}
     for (const at of animations) {
-      const action: AnimationAction = mixer.clipAction(at)
+      const action: AnimationActionType = mixer.clipAction(at)
       contentRef.current.actions[at.name] = action
       if (emotes.includes(at.name) || states.lastIndexOf(at.name) >= 4) {
         action.clampWhenFinished = true
@@ -118,7 +118,8 @@ function Robot() {
       emotesFolder.add(apiRef.current, et)
     }
     contentRef.current.mixer = mixer
-    emotesFolder.open()
+    emotesFolder.close()
+
     // expressions
     const face = model.getObjectByName('Head_4') as MeshType
     mainRef.current.face = face
@@ -130,8 +131,9 @@ function Robot() {
     })
     const activeAction = contentRef.current.actions.Walking
     contentRef.current.activeAction = activeAction
-    activeAction.play()
-    expressionFolder.open()
+    activeAction?.play()
+    expressionFolder.close()
+    gui.close()
   }
 
   function init() {
@@ -159,9 +161,11 @@ function Robot() {
     mesh.rotation.x = -Math.PI / 2
     scene.add(mesh)
 
-    const grid = new GridHelper(200, 40, 0x000000, 0x000000)
-    grid.material.opacity = 0.2
-    grid.material.transparent = true
+    const grid = new GridHelper(40, 40, 0x000000, 0x000000)
+    grid.material.setValues({
+      opacity: 0.1,
+      transparent: true
+    })
     scene.add(grid)
 
     // model
@@ -187,7 +191,7 @@ function Robot() {
 
     // stats
     const stats: StatsType = new Stats()
-    containerRef.current.appendChild(stats.dom)
+    containerRef.current?.appendChild(stats.dom)
 
     contentRef.current.stats = stats
     mainRef.current = {
@@ -199,15 +203,16 @@ function Robot() {
   }
 
   function animate() {
-    const delta = contentRef.current.clock.getDelta()
-    if (contentRef.current.mixer) {
+    const delta = contentRef.current.clock?.getDelta()
+    if (contentRef.current.mixer && delta) {
       contentRef.current.mixer.update(delta)
     }
     requestAnimationFrame(animate)
-    if (mainRef.current.renderer) {
-      mainRef.current.renderer?.render(mainRef.current.scene, mainRef.current.camera)
+    const { renderer, scene, camera } = mainRef.current
+    if (renderer && scene && camera) {
+      renderer.render(scene, camera)
     }
-    contentRef.current.stats.update()
+    contentRef.current.stats?.update()
   }
 
   useEffect(() => {
