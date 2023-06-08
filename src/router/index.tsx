@@ -5,7 +5,8 @@ import Home from '#@/views/Home'
 const modules: { [key: string]: React.LazyExoticComponent<() => JSX.Element> } = {
   '/about': lazy(() => import('#@/views/About')),
   '/goddess': lazy(() => import('#@/views/Goddess')),
-  '/robot': lazy(() => import('#@/views/Robot'))
+  '/robot': lazy(() => import('#@/views/Robot')),
+  '/fox': lazy(() => import('#@/views/Fox'))
 }
 
 const paths = [
@@ -17,6 +18,9 @@ const paths = [
   },
   {
     key: '/robot'
+  },
+  {
+    key: '/fox'
   }
 ]
 
