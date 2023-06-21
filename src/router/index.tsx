@@ -4,9 +4,10 @@ import Home from '#@/views/Home'
 
 const modules: { [key: string]: React.LazyExoticComponent<() => JSX.Element> } = {
   '/about': lazy(() => import('#@/views/About')),
-  '/goddess': lazy(() => import('#@/views/Goddess')),
+  '/lottie': lazy(() => import('#@/views/Lottie')),
   '/robot': lazy(() => import('#@/views/Robot')),
-  '/fox': lazy(() => import('#@/views/Fox'))
+  '/fox': lazy(() => import('#@/views/Fox')),
+  '/shell': lazy(() => import('#@/views/Shell'))
 }
 
 const paths = [
@@ -14,13 +15,16 @@ const paths = [
     key: '/about'
   },
   {
-    key: '/goddess'
+    key: '/lottie'
   },
   {
     key: '/robot'
   },
   {
     key: '/fox'
+  },
+  {
+    key: '/shell'
   }
 ]
 

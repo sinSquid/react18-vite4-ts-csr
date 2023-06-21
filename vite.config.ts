@@ -49,7 +49,8 @@ export default ({ mode }: ConfigEnv) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }
-      }
+      },
+      cors: true
     },
     css: {
       // css预处理器
@@ -57,13 +58,17 @@ export default ({ mode }: ConfigEnv) => {
         sass: {
           javascriptEnabled: true
         }
+      },
+      modules: {
+        localsConvention: 'camelCaseOnly'
       }
     },
     // 构建
     build: {
       outDir: `docs`, // 输出路径
       // 构建后是否生成 source map 文件
-      sourcemap: mode !== 'production'
+      sourcemap: mode !== 'production',
+      assetsInlineLimit: 4096
       // 打包去掉打印信息 保留debugger vite3需要单独安装terser才行
       // minify: 'terser',
       // terserOptions: {

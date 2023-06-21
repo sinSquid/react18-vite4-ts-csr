@@ -12,9 +12,5 @@ export default function App() {
     }
   }, [])
 
-  return (
-    <div>
-      <MyRoutes />
-    </div>
-  )
+  return <MyRoutes />
 }

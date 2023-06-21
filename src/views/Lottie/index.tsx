@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useLottie from '#@hooks/useLottie'
 import lottieData from '#@assets/lottie/moody-giraffe.json'
 
-function Goddess() {
+function Lottie() {
   const option = {
     animationData: lottieData,
     loop: true
@@ -17,4 +17,4 @@ function Goddess() {
   )
 }
 
-export default Goddess
+export default Lottie
