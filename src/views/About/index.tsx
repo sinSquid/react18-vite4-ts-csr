@@ -59,6 +59,7 @@ function About() {
       <p>{`${name}:${age}`}</p>
       <div>
         <button
+          type="button"
           onClick={() => {
             navigate(-1)
           }}
@@ -67,6 +68,7 @@ function About() {
         </button>
       </div>
       <button
+        type="button"
         onClick={() => {
           dispatch(changeUser({ age: age + 1 }))
         }}
